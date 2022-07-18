@@ -29,6 +29,11 @@ void UMover::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponent
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 	
-	UE_LOG(LogTemp, Display, TEXT("Your message"));
+	AActor* Owner = GetOwner();
+	
+	FVector Location = Owner->GetActorLocation();
+	FString LocationString = Location.ToCompactString();
+
+	UE_LOG(LogTemp, Display, TEXT("Your location: %s"), *LocationString);
 }
 
