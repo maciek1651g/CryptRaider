@@ -1,6 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "Mover.h"
 #include "Math/UnrealMathUtility.h"
 
@@ -14,7 +13,6 @@ UMover::UMover()
 	// ...
 }
 
-
 // Called when the game starts
 void UMover::BeginPlay()
 {
@@ -23,14 +21,13 @@ void UMover::BeginPlay()
 	OriginalLocation = GetOwner()->GetActorLocation();
 }
 
-
 // Called every frame
-void UMover::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+void UMover::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	if(ShouldMove)
-	{	
+	if (ShouldMove)
+	{
 		FVector CurrentLocation = GetOwner()->GetActorLocation();
 		FVector TargetLovation = OriginalLocation + MoveOffset;
 		float Speed = FVector::Distance(OriginalLocation, TargetLovation) / MoveTime;
@@ -39,4 +36,3 @@ void UMover::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponent
 		GetOwner()->SetActorLocation(NewLocation);
 	}
 }
-
