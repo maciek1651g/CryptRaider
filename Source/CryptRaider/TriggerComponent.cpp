@@ -15,4 +15,15 @@ void UTriggerComponent::BeginPlay()
 void UTriggerComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
 {
     Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+    TArray<AActor *> Actors;
+    GetOverlappingActors(Actors);
+
+    for (AActor *Actor : Actors)
+    {
+        if (Actor->ActorHasTag(UnlockTag))
+        {
+            UE_LOG(LogTemp, Display, TEXT("Overlapping actor name: %s"), *Actor->GetActorNameOrLabel());
+        }
+    }
 }
