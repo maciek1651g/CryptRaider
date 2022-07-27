@@ -16,15 +16,21 @@ void UTriggerComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 {
     Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-    AActor *AcceptableActor = GetAcceptableActor();
-
-    if (AcceptableActor)
+    AActor *Actor = GetAcceptableActor();
+    if (Actor)
     {
+        UPrimitiveComponent *Component = Cast<UPrimitiveComponent>(Actor->GetRootComponent());
+        if (Component)
+        {
+            Component->SetSimulatePhysics(false);
+        }
+
+        Actor->AttachToComponent(this, FAttachmentTransformRules::KeepRelativeTransform);
         Mover->SetShouldMove(true);
     }
     else
     {
-        Mover->SetShouldMove(false);
+        // Mover->SetShouldMove(false);
     }
 }
 
