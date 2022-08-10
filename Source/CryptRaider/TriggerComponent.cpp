@@ -22,18 +22,9 @@ void UTriggerComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAct
         UPrimitiveComponent *Component = Cast<UPrimitiveComponent>(Actor->GetRootComponent());
         if (Component)
         {
-            if (!Actor->ActorHasTag("Grabbed"))
-            {
-                Component->SetSimulatePhysics(false);
-                Actor->AttachToComponent(this, FAttachmentTransformRules::KeepWorldTransform);
-                Mover->SetShouldMove(true);
-            }
-            else
-            {
-                Component->SetSimulatePhysics(true);
-                Actor->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
-                Mover->SetShouldMove(false);
-            }
+            Component->SetSimulatePhysics(false);
+            Actor->AttachToComponent(this, FAttachmentTransformRules::KeepWorldTransform);
+            Mover->SetShouldMove(true);
         }
     }
     else
@@ -49,7 +40,7 @@ AActor *UTriggerComponent::GetAcceptableActor() const
 
     for (AActor *Actor : Actors)
     {
-        if (Actor->ActorHasTag(UnlockTag))
+        if (Actor->ActorHasTag(UnlockTag) && !Actor->ActorHasTag("Grabbed"))
         {
             return Actor;
         }
